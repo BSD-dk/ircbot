@@ -1,0 +1,77 @@
+{
+    "bot": {
+        "nickname": "goto",
+        "realname": "BSD-dk service bot. Poke ahf for help.", 
+        "username": "goto"
+    },
+    "channels": [
+        {
+            "name": "#bsd-dk-bestyr",
+            "operators": [
+                "ahf",
+                "Tykling",
+                "colde",
+                "Grrrr"
+            ]
+        }
+    ],
+    "servers": [
+        {
+            "hostname": "efnet.xs4all.nl",
+            "port": 6697,
+            "ssl": true
+        }
+    ],
+    "users": [
+        {
+            "name": "ahf",
+            "class": "admin",
+            "mask": "*!ahf@neverland.xs4all.nl"
+        },
+        {
+            "name": "ptrf",
+            "class": "user",
+            "mask": "*!ptrf@horus.0x90.dk"
+        },
+        {
+            "name": "jlouis",
+            "class": "user",
+            "mask": "*!jlouis@horus.0x90.dk"
+        },
+        {
+            "name": "Tykling",
+            "class": "user",
+            "mask": "*!tykling@tyknet.dk"
+        },
+        {
+            "name": "hlk",
+            "class": "user",
+            "mask": "*!~hlk@mail.kramse.org"
+        },
+        {
+            "name": "Tykling",
+            "class": "user",
+            "mask": "*!tykling@tyknet.dk"
+        },
+        {
+            "name": "hulli",
+            "class": "user",
+            "mask": "*!~hulli@rootweiler.dk"
+        },
+        {
+            "name": "F3",
+            "class": "user",
+            "mask": "*!~fj@wonko.batmule.dk"
+        },
+        {
+            "name": "colde",
+            "class": "user",
+            "mask": "*!~colde@server.x10d.dk"
+        },
+        {
+            "name": "Grrrr",
+            "class": "user",
+            "mask": "*!heechee.tobez.org"
+        }
+    ]
+}
