@@ -73,21 +73,22 @@ class Hostmask(object):
     def __str__(self):
         return "%s!%s@%s" % (self.nickname, self.username, self.hostname)
 
-def parseHostmask(hostmask):
-    tmp = hostmask.split('@')
-    if len(tmp) != 2:
-        return None
+    @staticmethod
+    def parse(hostmask):
+        tmp = hostmask.split('@')
+        if len(tmp) != 2:
+            return None
 
-    hostname = tmp[1]
+        hostname = tmp[1]
 
-    tmp = tmp[0].split('!')
-    if len(tmp) != 2:
-        return None
+        tmp = tmp[0].split('!')
+        if len(tmp) != 2:
+            return None
 
-    nickname = tmp[0]
-    username = tmp[1]
+        nickname = tmp[0]
+        username = tmp[1]
 
-    return Hostmask(nickname, username, hostname)
+        return Hostmask(nickname, username, hostname)
 
 class Channel(object):
     def __init__(self, name, operators):
@@ -540,7 +541,7 @@ class Client(irc.IRCClient):
     def irc_JOIN(self, prefix, params):
         assert len(params) == 1
 
-        hostmask = parseHostmask(prefix)
+        hostmask = Hostmask.parse(prefix)
         channel = params[0]
         nickname = hostmask.getNickname()
 
@@ -590,7 +591,7 @@ class Client(irc.IRCClient):
         self.join(channel)
 
     def modeChanged(self, user, channel, added, modes, args):
-        hostmask = parseHostmask(user)
+        hostmask = Hostmask.parse(user)
 
         if hostmask == None:
             modeChanger = user
