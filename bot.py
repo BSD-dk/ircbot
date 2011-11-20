@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-# vim: set sw=4 sts=4 et tw=120 :
 # -*- coding: utf-8 -*-
+# vim: set sw=4 sts=4 et tw=120 :
 
 # Copyright (c) 2011 Alexander Færøy <ahf@0x90.dk>
 # All rights reserved.
