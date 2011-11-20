@@ -150,7 +150,10 @@ class UserRegistry(object):
         self.users[user.getName()] = user
 
     def find(self, username):
-        return self.users[username]
+        if self.contains(username):
+            return self.users[username]
+
+        return None
 
     def contains(self, username):
         return username in self.users
