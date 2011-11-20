@@ -554,6 +554,10 @@ class Client(irc.IRCClient):
     def op(self, channel, nick):
         self.mode(channel, True, "o", user = nick)
 
+    def ctcpUnknownQuery(self, user, channel, tag, data):
+        # Ignore unknown CTCP messages.
+        pass
+
     def considerOpping(self, hostmask, channel):
         if not self.config.getChannelState(channel).isOpped():
             return
