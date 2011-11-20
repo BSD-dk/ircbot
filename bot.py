@@ -549,15 +549,15 @@ class Client(irc.IRCClient):
             self.joined(channel)
         else:
             self.userJoined(nickname, channel)
-
-            # We are opped.
-            if self.config.getChannelState(channel).isOpped():
-                self.considerOpping(hostmask, channel)
+            self.considerOpping(hostmask, channel)
 
     def op(self, channel, nick):
         self.mode(channel, True, "o", user = nick)
 
     def considerOpping(self, hostmask, channel):
+        if not self.config.getChannelState(channel).isOpped():
+            return
+
         print ">>> Considering giving op to %s on %s" % (hostmask.getNickname(), channel)
         matches = self.config.findOperatorCandidates(hostmask, channel)
 
