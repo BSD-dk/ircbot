@@ -162,6 +162,15 @@ class UserRegistry(object):
     def getUsers(self):
         return [u for (_, u) in self.users.items()]
 
+    def findMatches(self, hostmask):
+        r = []
+
+        for _, user in self.users.items():
+            if user.match(hostmask.getHostmask()):
+                r.append(user)
+
+        return r
+
 class Configuration(object):
     def __init__(self):
         self.nickname = ""
@@ -472,6 +481,9 @@ class ConfigurationService(object):
     def getRealname(self):
         return self.config.getRealname()
 
+    def findMatches(self, hostmask):
+        return self.config.userRegistry.findMatches(hostmask)
+
     def nextServer(self):
         servers = self.config.getServers()
         self.currentServer = servers.popleft()
@@ -540,6 +552,29 @@ class Client(irc.IRCClient):
 
     def userJoined(self, user, channel):
         print ">>> %s has joined %s" % (user, channel)
+
+    def privmsg(self, user, target, message):
+        if self.nickname != target:
+            return
+
+        hostmask = Hostmask.parse(user)
+
+        if hostmask is None:
+            return
+
+        print ">>> Message from '%s': '%s'" % (hostmask.getHostmask(), message)
+
+        parameters = message.split(" ")
+        length = len(parameters)
+
+        if length >= 1:
+            method = getattr(self, "cmd_%s" % parameters[0], None)
+
+            if method:
+                print ">>> Executing handler for command '%s'" % parameters[0]
+                method(hostmask, parameters)
+            else:
+                self.notice(hostmask.getNickname(), "Unknown Command: %s" % message)
 
     def irc_JOIN(self, prefix, params):
         assert len(params) == 1
@@ -669,6 +704,18 @@ class Client(irc.IRCClient):
                 return
 
             cs.setOpped(False)
+
+    def cmd_whoami(self, hostmask, parameters):
+        users = self.config.findMatches(hostmask)
+        target = hostmask.getNickname()
+
+        if users:
+            for user in users:
+                self.notice(target, "Username: '%s'" % user.getName())
+                self.notice(target, "Hostmask: '%s'" % user.getMask())
+                self.notice(target, "Class:    '%s'" % user.getUserClass())
+        else:
+            self.notice(target, "Unknown user")
 
 class ClientFactory(protocol.ClientFactory):
     protocol = Client
