@@ -480,7 +480,10 @@ class ConfigurationService(object):
         return self.currentServer
 
     def getChannelState(self, channel):
-        return self.channelStates[channel]
+        if channel in self.channelStates:
+            return self.channelStates[channel]
+
+        return None
 
     def joinedChannel(self, channel):
         self.channelStates[channel] = ChannelState(channel)
@@ -559,8 +562,33 @@ class Client(irc.IRCClient):
         # Ignore unknown CTCP messages.
         pass
 
+    def ctcpQuery_OP(self, user, target, message):
+        if target != self.nickname:
+            return
+
+        if message is None:
+            return
+
+        hostmask = Hostmask.parse(user)
+
+        if hostmask is None:
+            return
+
+        channels = message.split(" ")
+        message = ", ".join(channels)
+
+        print ">>> CTCP OP from '%s' for channels: %s" % (hostmask.getHostmask(), message)
+
+        for channel in channels:
+            self.considerOpping(hostmask, channel)
+
     def considerOpping(self, hostmask, channel):
-        if not self.config.getChannelState(channel).isOpped():
+        cs = self.config.getChannelState(channel)
+
+        if not cs:
+            return
+
+        if not cs.isOpped():
             return
 
         print ">>> Considering giving op to %s on %s" % (hostmask.getNickname(), channel)
@@ -625,12 +653,22 @@ class Client(irc.IRCClient):
     def userOpped(self, user, target, channel):
         # We got opped.
         if self.nickname == target:
-            self.config.getChannelState(channel).setOpped(True)
+            cs = self.config.getChannelState(channel)
+
+            if not cs:
+                return
+
+            cs.setOpped(True)
 
     def userDeopped(self, user, target, channel):
         # We got deopped.
         if self.nickname == target:
-            self.config.getChannelState(channel).setOpped(False)
+            cs = self.config.getChannelState(channel)
+
+            if not cs:
+                return
+
+            cs.setOpped(False)
 
 class ClientFactory(protocol.ClientFactory):
     protocol = Client
