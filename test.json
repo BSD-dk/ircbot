@@ -1,0 +1,29 @@
+{
+    "bot": {
+        "nickname": "goto",
+        "realname": "BSD-dk service bot. Poke ahf for help.", 
+        "username": "goto"
+    },
+    "channels": [
+        {
+            "name": "#bsd-dk",
+            "operators": [
+                "ahf"
+            ]
+        }
+    ],
+    "servers": [
+        {
+            "hostname": "irc.0x90.dk",
+            "port": 6697,
+            "ssl": true
+        }
+    ],
+    "users": [
+        {
+            "name": "ahf",
+            "class": "admin",
+            "mask": "*!ahf@satan."
+        }
+    ]
+}
