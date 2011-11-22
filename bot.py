@@ -174,7 +174,7 @@ class Configuration(object):
         self.username = ""
         self.realname = ""
         self.servers = deque()
-        self.channels = set()
+        self.channels = {}
         self.userRegistry = UserRegistry()
         self.currentServer = None
 
@@ -238,20 +238,13 @@ class Configuration(object):
         return self.servers
 
     def addChannel(self, channel):
-        self.channels.add(channel)
+        self.channels[channel.getName()] = channel
 
     def getChannels(self):
-        return self.channels
+        return self.channels.values()
 
     def getChannel(self, channel):
-        # FIXME: O(n) for something that should have been O(log n). Oh, well...  self.channels should have been a
-        # dictonary with a mapping between channel-name and matching Channel-object instance.  Fixing this would require
-        # a minor change in the configuration encoder and decoder.
-        for c in self.channels:
-            if channel == c.getName():
-                return c
-
-        return None
+        return self.channels.get(channel)
 
 class ConfigurationEncoder(json.JSONEncoder):
     def default(self, config):
