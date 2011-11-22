@@ -15,8 +15,8 @@
     "servers": [
         {
             "hostname": "irc.0x90.dk",
-            "port": 6697,
-            "ssl": true
+            "port": 6667,
+            "ssl": false
         }
     ],
     "users": [
