@@ -587,6 +587,9 @@ class Client(irc.IRCClient):
     def op(self, channel, nick):
         self.mode(channel, True, "o", user = nick)
 
+    def who(self, target):
+        self.sendLine("WHO %s" % target)
+
     def ctcpUnknownQuery(self, user, channel, tag, data):
         # Ignore unknown CTCP messages.
         pass
