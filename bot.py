@@ -499,13 +499,14 @@ class ConfigurationService(object):
 
     def findOperatorCandidates(self, hostmask, channel):
         c = self.config.getChannel(channel)
-        r = []
 
         # In this case, we are currently in a channel that is not listed in our configuration file. This could possibly
         # be due to forced channel join by an operator. This is only possible on certain dodgy IRCd's, like unreal and
         # friends, where operators have more power than God himself.
         if c == None:
-            return r
+            return []
+
+        r = []
 
         for operator in c.getOperators():
             if operator.match(hostmask.getHostmask()):
