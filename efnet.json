@@ -1,7 +1,7 @@
 {
     "bot": {
         "nickname": "goto",
-        "realname": "BSD-dk service bot. Poke ahf for help.", 
+        "realname": "ahf's butler",
         "username": "goto"
     },
     "channels": [
@@ -11,6 +11,30 @@
                 "ahf",
                 "Tykling",
                 "colde",
+                "Grrrr"
+            ]
+        },
+        {
+            "name": "#thecamp",
+            "operators": [
+                "ahf",
+                "Tykling",
+                "ptrf",
+                "hlk",
+                "F3"
+            ]
+        },
+        {
+            "name": "#bsd-dk",
+            "operators": [
+                "ahf",
+                "Tykling",
+                "ptrf",
+                "hlk",
+                "F3",
+                "colde",
+                "jlouis",
+                "hulli",
                 "Grrrr"
             ]
         }
