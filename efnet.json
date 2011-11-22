@@ -73,11 +73,6 @@
             "mask": "*!~hlk@mail.kramse.org"
         },
         {
-            "name": "Tykling",
-            "class": "user",
-            "mask": "*!tykling@tyknet.dk"
-        },
-        {
             "name": "hulli",
             "class": "user",
             "mask": "*!~hulli@rootweiler.dk"
