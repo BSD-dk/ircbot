@@ -151,16 +151,13 @@ class UserRegistry(object):
         self.users[user.getName()] = user
 
     def find(self, username):
-        if self.contains(username):
-            return self.users[username]
-
-        return None
+        return self.users.get(username)
 
     def contains(self, username):
         return username in self.users
 
     def getUsers(self):
-        return [u for (_, u) in self.users.items()]
+        return self.users.values()
 
     def findMatches(self, hostmask):
         r = []
@@ -492,10 +489,7 @@ class ConfigurationService(object):
         return self.currentServer
 
     def getChannelState(self, channel):
-        if channel in self.channelStates:
-            return self.channelStates[channel]
-
-        return None
+        return self.channelStates.get(channel)
 
     def joinedChannel(self, channel):
         self.channelStates[channel] = ChannelState(channel)
