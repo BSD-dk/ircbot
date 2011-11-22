@@ -726,14 +726,14 @@ class ClientFactory(protocol.ClientFactory):
 
     def clientConnectionLost(self, connector, reason):
         print ">>> Connection Lost: %s" % reason.getErrorMessage()
-        print ">>> Reconnecting"
+        print ">>> Reconnecting in 10 seconds"
 
         # FIXME: Handle server switch here.
-        connector.connect()
+        reactor.callLater(10, connector.connect)
 
     def clientConnectionFailed(self, connector, reason):
         print ">>> Connection Failed: %s" % reason.getErrorMessage()
-        print ">>> Reconnecting"
+        reactor.stop()
 
 class Bot(object):
     def __init__(self, filename):
