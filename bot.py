@@ -594,6 +594,12 @@ class Client(irc.IRCClient):
         # Ignore unknown CTCP messages.
         pass
 
+    def irc_unknown(self, prefix, command, params):
+        method = getattr(self, "irc_protocol_%s" % command, None)
+
+        if method:
+            method(prefix, command, params)
+
     def ctcpQuery_OP(self, user, target, message):
         if target != self.nickname:
             return
