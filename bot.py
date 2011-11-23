@@ -565,7 +565,8 @@ class Client(irc.IRCClient):
                 self.notice(hostmask.getNickname(), "Unknown Command: %s" % message)
 
     def irc_JOIN(self, prefix, params):
-        assert len(params) == 1
+        if len(params) != 1:
+            return
 
         hostmask = Hostmask.parse(prefix)
         channel = params[0]
