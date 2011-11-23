@@ -162,7 +162,7 @@ class UserRegistry(object):
     def findMatches(self, hostmask):
         r = []
 
-        for _, user in self.users.items():
+        for user in self.users.values():
             if user.match(hostmask.getHostmask()):
                 r.append(user)
 
