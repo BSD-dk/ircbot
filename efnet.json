@@ -85,7 +85,7 @@
         {
             "name": "colde",
             "class": "user",
-            "mask": "*!~colde@server.x10d.dk"
+            "mask": "*!colde@server.x10d.dk"
         },
         {
             "name": "Grrrr",
