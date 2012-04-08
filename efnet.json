@@ -56,7 +56,7 @@
         {
             "name": "ptrf",
             "class": "user",
-            "mask": "*!ptrf@horus.0x90.dk"
+            "mask": ["*!ptrf@horus.0x90.dk", "*!ptrf@proteus.pronoia.dk", "*!ptrf@hypnos.pronoia.dk"]
         },
         {
             "name": "jlouis",
